@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true})) // required name attr in input an
 app.use("/", globalRouter);
 app.use("/videos", videoRouter)
 app.use("/users", userRouter)
-
+//app.use() to specify middleware as the callback function (See Using middleware for details)
 
 export default app
 

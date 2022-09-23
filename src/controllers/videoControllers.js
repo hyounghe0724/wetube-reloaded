@@ -14,16 +14,17 @@ console.log("start")
 export const home = async(req, res) => {
     try{ //someting trying but find error then catch the error
     const videos = await Video.find({})
-    console.log(videos)
     return res.render("home", { pageTitle: "Home", videos});
     } catch(error) {
         return res.render("Server-error", error)
     }
     
 }
-export const watch = (req, res) => {
+export const watch = async(req, res) => {
     const { id } = req.params; //const id = req.params.id
-    return res.render("watch", {pageTitle: `Watching `});
+    const video = await Video.findById(id);
+    console.log(video)
+    return res.render("watch", {pageTitle: video.title, video});
 }
 export const getEdit = (req, res) => {
     const { id } = req.params; //const id = req.params.id
@@ -40,16 +41,20 @@ export const getUpload = (req, res) => {
 
 export const postUpload = async(req, res) => {   
     const { title, description, hashtags } = req.body;
+    console.log(description)
+    try{
     await Video.create({
         title,
         description,
-        createdAt: Date.now(),
-        hashtags: hashtags.split(",").map(word => `#${word}`),
-        meta:{
-            views: 0,
-            rating: 0,
-        },
-    });
+        hashtags: hashtags.split(",").map((word) => `#${word}`),
+    }); 
     return res.redirect("/");
+    } catch(error){
+        console.log(error)
+        return res.render("upload", {
+         pageTitle: "Upload Video", 
+         errorMessage: error["_message"]
+    });
+    } 
 }
 
