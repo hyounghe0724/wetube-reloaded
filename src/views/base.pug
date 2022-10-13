@@ -3,12 +3,26 @@ html(lang='ko')
     head 
         link(rel="stylesheet" href="https://unpkg.com/mvp.css@1.10.2/mvp.css")
 
-        title #{pageTitle} | Wetube
+        title #{pageTitle} | #{sideName}
     body  
         header
             h1=pageTitle
             nav
                 ul 
+                    li 
+                        a(href="/") Home
+                    if loggedIn 
+                        li 
+                            a(href="/logout") Log Out
+                        li 
+                            a(href="/my-profile") #{loggedInUser.name}의 Profile
+                    else
+                        li 
+                            a(href="/login") Login
+                        li 
+                            a(href="/join") Join
+                    li
+                        a(href="/search") Search
                     li 
                         a(href="/videos/upload") Upload Video
         main
