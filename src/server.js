@@ -1,4 +1,5 @@
 import express from "express";
+<<<<<<< HEAD
 import morgan from "morgan";
 import session from "express-session";
 import MongoStore from "connect-mongo";
@@ -10,10 +11,18 @@ import { localsMiddleWare } from "./middleware";
 //port is like computer's window
 
 const PORT = 57621;
+=======
+import logger from "morgan";
+//listen function in callback func is  operate at server stared  
+//port is like computer's window
+
+const PORT = 5000;
+>>>>>>> c3a1690c5c4664e403de60bf44377b15122abd96
 
 const app = express();
 const logger = morgan("dev");
 
+<<<<<<< HEAD
 app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
@@ -40,3 +49,20 @@ app.use("/users", userRouter);
 //app.use() to specify middleware as the callback function (See Using middleware for details)
 
 export default app;
+=======
+const home = (req, res) => {
+  console.log("I will respond.")
+  return res.send("hello");
+};
+const login = (req, res) => {
+  return res.send("login");
+};
+app.use(logger("dev"))
+app.get("/", home);
+app.get("/login", login);
+
+const handleListening = () =>
+  console.log(`✅ Server listenting on port http://localhost:${PORT} 🚀`); // 외부 접속을 받고 callback 함수  실행
+  
+app.listen(PORT, handleListening);
+>>>>>>> c3a1690c5c4664e403de60bf44377b15122abd96
