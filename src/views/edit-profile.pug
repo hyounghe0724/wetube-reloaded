@@ -1,0 +1,10 @@
+extends base
+
+block content
+    h1=errorMessage 
+    form(method="POST")
+        input(placeholder="your Name" name="name", type="text", required, value=loggedInUser.name) 
+        input(placeholder="your Email" name="email", type="email", required, value=loggedInUser.email) 
+        input(placeholder="Username" name="username", type="text", required, value=loggedInUser.username) 
+        input(placeholder="Location" name="location", type="text", required, value=loggedInUser.location)
+        input( type="submit", value="Update Profile")
