@@ -7,7 +7,7 @@ import {
   postUpload,
   deleteVideo,
 } from "../controllers/videoControllers";
-import { protectorMiddleware } from "../middleware";
+import { protectorMiddleware, uploadVideo } from "../middleware";
 const videoRouter = express.Router();
 
 videoRouter.get("/:id([0-9a-f]{24})", watch);
@@ -24,7 +24,7 @@ videoRouter
   .route("/upload")
   .all(protectorMiddleware)
   .get(getUpload)
-  .post(postUpload);
+  .post(uploadVideo.single("video"), postUpload);
 //what :id mean?, what req.params
 //: < use variable into URL's parameter , id in :id is parameter name
 // req.params is value of  parameter in URL(type is Doct)

@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/video";
 import fetch from "node-fetch";
 import bcrypt from "bcrypt";
 export const getJoin = (req, res) => res.render("join", { pageTitle: "join" });
@@ -148,8 +149,6 @@ export const postEdit = async (req, res) => {
         req.session.user.email,
         req.session.user.username,
       ];
-      console.log("info:", infos[index]);
-      console.log(req.session.user.email);
       if (sessionList.includes(infos[index])) {
         continue;
       } else {
@@ -160,9 +159,10 @@ export const postEdit = async (req, res) => {
 
   const {
     session: {
-      user: { _id },
+      user: { _id, avatarUrl },
     },
     body: { name, email, username, location },
+    file,
   } = req;
   // same const i = req.session.user.ud
   // const { name, email, username, location } = req.body;
@@ -181,10 +181,10 @@ export const postEdit = async (req, res) => {
       errorMessage: `${newInputed} is already existed`,
     });
   }
-
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name,
       email,
       username,
@@ -195,4 +195,44 @@ export const postEdit = async (req, res) => {
   req.session.user = updatedUser;
   return res.redirect("/users/edit");
 };
-export const see = (req, res) => res.send("See user");
+
+export const getChangePassworod = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Chage Password" });
+};
+export const postChangePassworod = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, newPassword, newPasswordConfirmation },
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Chage Password",
+      errorMessage: "The current password is incorrect",
+    });
+  }
+  if (newPassword !== newPasswordConfirmation) {
+    return res.status(400).render("users/change-password", {
+      pageTitle: "Chage Password",
+      errorMessage: "The password does not match the confirmation",
+    });
+  }
+  user.password = newPassword;
+  await user.save();
+
+  return res.redirect("/users/logout");
+};
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User Not Found" });
+  }
+  return res.render("users/profile", { pageTitle: user.name, user });
+};

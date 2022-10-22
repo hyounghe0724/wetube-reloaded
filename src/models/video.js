@@ -7,6 +7,7 @@ const videoSchema = new mongoose.Schema({
     trim: true,
     maxLength: 80,
   },
+  fileUrl: { type: String, required: true },
   description: { type: String, required: true, trim: true, minLength: 20 },
   createdAt: { type: Date, required: true, default: Date.now },
   hashtags: [{ type: String, trim: true }],
@@ -14,6 +15,9 @@ const videoSchema = new mongoose.Schema({
     views: { type: Number, default: 0, required: true },
     rating: { type: Number, default: 0, required: true },
   },
+  owner: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
+  // we tell mongoose to we use Model's id of User
+  // if we not write code moongoose can't find what use Model's id
 });
 
 videoSchema.static("formatHashtags", function (hashtags) {

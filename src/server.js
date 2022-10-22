@@ -34,6 +34,7 @@ app.use(
 
 // required name attr in input and this located middleware
 app.use(localsMiddleWare);
+app.use("/uploads", express.static("uploads")); // file uploads
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
