@@ -16,7 +16,9 @@ console.log("start")
 export const home = async (req, res) => {
   try {
     //someting trying but find error then catch the error
-    const videos = await Video.find({}).sort({ createdAt: "desc" });
+    const videos = await Video.find({})
+      .sort({ createdAt: "desc" })
+      .populate("owner");
     return res.render("home", { pageTitle: "Home", videos });
   } catch (error) {
     return res.render("Server-error", error);

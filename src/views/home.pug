@@ -4,8 +4,9 @@ include mixins/video
 
 
 block content 
-    ul
+    div.video-grid
         each video in videos
             +video(video)
+           
         else 
-            li Sorry Nothing Found
+            span.empty__message No vidoes Found
