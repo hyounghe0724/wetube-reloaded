@@ -5,8 +5,8 @@ block content
     form(method="GET").search__form
         // GET method send form data to HTTP GET method in URL ex) ?name=value
         input(placeholder="Search my title", name="keyword",type="text")
-        input(type="submit", value="Search now")
-    
+        button  
+              i.fas.fa-search
     div.video-grid
         each video in videos 
             +video(video)
