@@ -6,8 +6,11 @@ import {
   see,
   startGithubLogin,
   finishGithubLogin,
+  startKakaoLogin,
+  finishKakaoLogin,
   getChangePassworod,
   postChangePassworod,
+  expireFnc
 } from "../controllers/userControllers";
 import {
   protectorMiddleware,
@@ -27,8 +30,11 @@ userRouter
   .all(protectorMiddleware)
   .get(getChangePassworod)
   .post(postChangePassworod);
+userRouter.get("/expire", protectorMiddleware, expireFnc)
 userRouter.get("/github/start", publicOnlyMiddleware, startGithubLogin);
 userRouter.get("/github/finish", publicOnlyMiddleware, finishGithubLogin);
+userRouter.get("/kakao/start", publicOnlyMiddleware, startKakaoLogin);
+userRouter.get("/kakao/finish", publicOnlyMiddleware, finishKakaoLogin);
 userRouter.get("/:id", see);
-
+//users/kakao/start
 export default userRouter;
