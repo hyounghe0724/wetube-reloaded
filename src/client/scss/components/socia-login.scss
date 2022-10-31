@@ -1,9 +1,30 @@
 .social-login {
+  text-align: center;
   border-top: 1px solid rgba(255, 255, 255, 0.5);
   padding-top: 40px;
   margin-top: 30px;
-  .social__btn--github {
+  .social__btn--github{
+    text-align: center;
+    width: 183px;
+    padding: 15.1px 0 ;
+    border: 1px solid rgba(255, 255, 255, 0.5);
     background-color: transparent;
     color: azure;
+    border-radius: 12px;
+
   }
+  .social__btn--kakao{
+    padding-top:10px; 
+  }
+  .kakao__btn{
+    border-radius: 12px;
+    width: 420px;
+    background-color: #FEE500;
+    img{
+      margin-top: 10px;
+    }
+  }
+}
+a.social__btn{
+  margin: 0 auto;
 }
