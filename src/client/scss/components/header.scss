@@ -8,9 +8,9 @@ header {
     font-size: 38px;
   }
   ul {
-    padding: 10px 25px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     li {
       margin-left: 30px;
       font-size: 14px;
@@ -27,5 +27,10 @@ header {
     color: $bg;
     padding: 5px 10px;
     border-radius: 5px;
+  }
+  .header__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
   }
 }
