@@ -117,12 +117,19 @@ const handleSpacebarPressed = (event) => {
     playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
   }
 };
+const handleEnded = async () => {
+  const { id } = videoContainer.dataset;
+  await fetch(`/api/videos/${id}/view`, {
+    method: "POST",
+  });
+};
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handelVolumeChange);
 video.addEventListener("loadeddata", handleMetadata);
 video.addEventListener("timeupdate", handleTimeUpdate);
 video.addEventListener("click", handleClickVideo);
+video.addEventListener("ended", handleEnded);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
