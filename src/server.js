@@ -6,6 +6,7 @@ import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
 import { localsMiddleWare } from "./middleware";
+import apiRouter from "./routers/apiRouter";
 //listen function in callback func is  operate at server stared
 //port is like computer's window
 
@@ -39,6 +40,7 @@ app.use("/static", express.static("assets"));
 app.use("/", rootRouter);
 app.use("/videos", videoRouter);
 app.use("/users", userRouter);
+app.use("/api", apiRouter);
 //app.use() to specify middleware as the callback function (See Using middleware for details)
 
 export default app;

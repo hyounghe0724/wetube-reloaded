@@ -11,7 +11,9 @@ html(lang='ko')
         main
             block content
     include partials/footer
+    block scripts 
     script(src="/static/js/main.js") 
     script(src="https://kit.fontawesome.com/3d21646128.js" ,crossorigin="anonymous")
     script( src="https://t1.kakaocdn.net/kakao_js_sdk/${VERSION}/kakao.min.js"
   integrity="sha384-PFHeU/4gvSH8kpvhrigAPfZGBDPs372JceJq3jAXce11bVA6rMvGWzvP4fMQuBGL" crossorigin="anonymous")
+    script(src="/static/js/main.js")
