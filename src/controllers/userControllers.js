@@ -213,9 +213,6 @@ export const expireFnc = async (req, res) => {
   const OUT_KEY = process.env.KA_SECRET;
   let USER_REFRESH_TOKEN;
 
-  console.log("시ㅏㄹ먼데")
-  
-  
   const response = await axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`)
   console.log(response)
   return res.redirect("/users/logout")
