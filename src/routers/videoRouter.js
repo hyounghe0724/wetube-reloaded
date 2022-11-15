@@ -24,7 +24,13 @@ videoRouter
   .route("/upload")
   .all(protectorMiddleware)
   .get(getUpload)
-  .post(uploadVideo.single("video"), postUpload);
+  .post(
+    uploadVideo.fields([
+      { name: "video", maxCount: 1 },
+      { thumb: "thumb", maxCount: 1 },
+    ]),
+    postUpload
+  );
 //what :id mean?, what req.params
 //: < use variable into URL's parameter , id in :id is parameter name
 // req.params is value of  parameter in URL(type is Doct)
