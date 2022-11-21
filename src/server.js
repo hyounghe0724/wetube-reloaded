@@ -1,6 +1,7 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
+import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
@@ -19,7 +20,7 @@ app.set("view engine", "pug");
 app.set("views", process.cwd() + "/src/views");
 app.use(logger);
 app.use(express.urlencoded({ extended: true })); //req.body parsing
-
+app.use(express.json());
 // ----세션----
 // 브라우저 요청 > 백엔드 > 백엔드 에서 유저의 id를 요청에담아 보냄(쿠키)과 동시에
 // 세션 DB에 저장 > 유저는 그 id를 브라우저의 쿠키에 저장
@@ -34,6 +35,7 @@ app.use(
 );
 
 // required name attr in input and this located middleware
+app.use(flash());
 app.use(localsMiddleWare);
 app.use("/uploads", express.static("uploads")); // file uploads
 app.use("/static", express.static("assets"));

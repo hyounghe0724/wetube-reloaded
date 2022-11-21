@@ -24,6 +24,8 @@
     "connect-mongo": "^4.6.0",
     "dotenv": "^16.0.3",
     "express": "^4.18.1",
+    "express-flash": "^0.0.2",
+    "express-messages": "^1.0.1",
     "express-session": "^1.17.3",
     "mongoose": "^5.12.3",
     "morgan": "^1.10.0",

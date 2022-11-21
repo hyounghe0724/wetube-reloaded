@@ -27,7 +27,7 @@ videoRouter
   .post(
     uploadVideo.fields([
       { name: "video", maxCount: 1 },
-      { thumb: "thumb", maxCount: 1 },
+      { name: "thumb", maxCount: 1 },
     ]),
     postUpload
   );
