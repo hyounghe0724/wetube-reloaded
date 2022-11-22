@@ -105,7 +105,7 @@ const handleMouseMove = () => {
 const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
-const handleSpacebarPressed = (event) => {
+const handleSpacebarPressed = (event) => { // spacebar controls play pause
   if (event.keyCode == 32) {
     if (video.paused) {
       event.preventDefault();
@@ -134,4 +134,4 @@ videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 timeline.addEventListener("input", handleTimelineChange);
 fullScreenBtn.addEventListener("click", handleFullscreen);
-body.addEventListener("keydown", handleSpacebarPressed);
+body.addEventListener("keydown", handleSpacebarPressed); // spacebar controls play pause
