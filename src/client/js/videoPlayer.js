@@ -1,4 +1,3 @@
-import { format } from "morgan";
 import "../scss/style.scss";
 const video = document.querySelector("video");
 const playBtn = document.getElementById("play");
@@ -13,6 +12,8 @@ const fullScreenBtn = document.getElementById("fullScreen");
 const fullScreenIcon = fullScreenBtn.querySelector("i");
 const videoContainer = document.getElementById("videoContainer");
 const videoControls = document.getElementById("videoControls");
+const form = document.getElementById("commentForm");
+const textarea = form.querySelector("textarea");
 const body = document.body;
 let controlsTimeout = null;
 let controlsMovementTimeout = null;
@@ -106,16 +107,21 @@ const handleMouseLeave = () => {
   controlsTimeout = setTimeout(hideControls, 3000);
 };
 const handleSpacebarPressed = (event) => { // spacebar controls play pause
-  if (event.keyCode == 32) {
-    if (video.paused) {
-      event.preventDefault();
-      video.play();
-    } else {
-      event.preventDefault();
-      video.pause();
+  if (!(textarea == document.activeElement)) {
+    if (event.keyCode == 32) {
+      if (video.paused) {
+        event.preventDefault();
+        video.play();
+      } else {
+        event.preventDefault();
+        video.pause();
+      }
+      playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
     }
-    playBtnIcon.classList = video.paused ? "fas fa-play" : "fas fa-pause";
   }
+  
+
+
 };
 const handleEnded = async () => {
   const { id } = videoContainer.dataset;
@@ -123,6 +129,7 @@ const handleEnded = async () => {
     method: "POST",
   });
 };
+
 playBtn.addEventListener("click", handlePlayClick);
 muteBtn.addEventListener("click", handleMute);
 volumeRange.addEventListener("input", handelVolumeChange);
