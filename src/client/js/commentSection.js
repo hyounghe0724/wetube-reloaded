@@ -2,7 +2,7 @@ import { async } from "regenerator-runtime";
 
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-
+const deleteBtn = document.getElementsByClassName("deleteBtn")
 const addComment = (text, id) => {
   const videoComments = document.querySelector(".video__comments ul");
   const newComment = document.createElement("li");
@@ -52,4 +52,5 @@ const handleSubmit = async(event) => {
 
 if (form) {
   form.addEventListener("submit", handleSubmit);
+  deleteBtn.addEventListener("click", handleDeleteComment);
 }
