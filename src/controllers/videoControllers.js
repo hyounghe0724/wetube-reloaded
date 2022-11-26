@@ -29,10 +29,11 @@ export const home = async (req, res) => {
 export const watch = async (req, res) => {
   const { id } = req.params; //const id = req.params.id
   const video = await Video.findById(id).populate("owner").populate("comments");
+  const comment = await Comment.findById(id);
   if (!video) {
     return res.status(404).render("404", { pageTitle: "Video not found" });
   }
-  return res.render("watch", { pageTitle: video.title, video });
+  return res.render("watch", { pageTitle: video.title, video, comment });
 };
 export const getEdit = async (req, res) => {
   const { id } = req.params; //const id = req.params.id
@@ -168,10 +169,12 @@ export const createComment = async(req, res) => {
     video: id,
   })
   video.comments.push(comment._id);
-  video.save();
+  comment.dataset = comment._id
+  console.log(comment.dataset)
+  await video.save();
   return res.status(201).json({newCommentId: comment._id});
 }
 
-export const deleteComment = () => {
-  
+export const deleteComment = (req, res) => {
+  console.log(req)
 }
