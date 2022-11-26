@@ -228,7 +228,7 @@ export const logout = async (req, res) => {
   //   const OUT_KEY = process.env.KA_SECRET;
   //   let USER_REFRESH_TOKEN;
   req.session.destroy();
-
+  req.flash("info", "Bye Bye");
   //   const response = await axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
   //);
   return res.redirect("/");
@@ -294,6 +294,7 @@ export const postEdit = async (req, res) => {
 
 export const getChangePassworod = (req, res) => {
   if (req.session.user.socialOnly === true) {
+    req.flash("error", "Can't change password");
     return res.redirect("/");
   }
   return res.render("users/change-password", { pageTitle: "Chage Password" });
@@ -321,7 +322,7 @@ export const postChangePassworod = async (req, res) => {
   }
   user.password = newPassword;
   await user.save();
-
+  req.flash("info", "Password updated");
   return res.redirect("/users/logout");
 };
 export const see = async (req, res) => {
