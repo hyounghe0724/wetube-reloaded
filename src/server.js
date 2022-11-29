@@ -1,13 +1,13 @@
 import express from "express";
 import morgan from "morgan";
 import session from "express-session";
-import flash from "express-flash";
 import MongoStore from "connect-mongo";
 import rootRouter from "./routers/rootRouter";
 import videoRouter from "./routers/videoRouter";
 import userRouter from "./routers/userRouter";
 import { localsMiddleWare } from "./middleware";
 import apiRouter from "./routers/apiRouter";
+import flash from "express-flash";
 //listen function in callback func is  operate at server stared
 //port is like computer's window
 

@@ -3,7 +3,8 @@ import { async } from "regenerator-runtime";
 
 const videoContainer = document.getElementById("videoContainer");
 const form = document.getElementById("commentForm");
-let deleteBtn;
+const videoComments = document.querySelector(".video__comments")
+const deleteBtns = videoComments.getElementsByClassName("deleteBtn")
 
 
 const addComment = (text, id) => {
@@ -52,14 +53,19 @@ const handleSubmit = async(event) => {
     addComment(text, newCommentId);
   }
 };
-deleteBtn = document.querySelector(".video__comment button")
-const handleDeleteComment = async() => {
-  const parents = deleteBtn.parentNode
-  console.log(parents)
-
+const handleDeleteComment = async (event) => {
+  const comment = event.target.parentNode;
+  const videoId = videoContainer.dataset.id;
+  const response = await fetch(`/api/videos/${videoId}/comment/delete/${comment.dataset.id}`, {
+    method: "DELETE",
+  });
+  comment.remove();
 }
-deleteBtn.addEventListener("click", handleDeleteComment);
+
 
 if (form) {
   form.addEventListener("submit", handleSubmit);
+}
+for (let i = 0; i < deleteBtns.length; i++){
+  deleteBtns[i].addEventListener("click", handleDeleteComment)
 }
