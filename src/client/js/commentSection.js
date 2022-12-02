@@ -48,6 +48,10 @@ const handleSubmit = async(event) => {
       body: JSON.stringify({ text }),
   });
   textarea.value = "";
+  if (response.status == 403) {
+    window.location.reload()
+    return
+  }
   if (response.status == 201) {
     const {newCommentId} = await response.json();
     addComment(text, newCommentId);
@@ -69,3 +73,4 @@ if (form) {
 for (let i = 0; i < deleteBtns.length; i++){
   deleteBtns[i].addEventListener("click", handleDeleteComment)
 }
+//deleteBtns.forEach((btn) => btn.addEventListener("click", handleDeleteClick));

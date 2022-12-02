@@ -61,7 +61,6 @@ export const postEdit = async (req, res) => {
   const video = await Video.exists({ _id: id }); // return true or false
 
   if (!video) {
-    console.log("post Edit");
     return res.render("404", { pageTitle: "Video not found" });
   }
   if (String(video.owner) !== String(req.session.user._id)) {
@@ -116,7 +115,6 @@ export const deleteVideo = async (req, res) => {
   } = req.session;
   const video = await Video.findById(id);
   if (!video) {
-    console.log("post Edit");
     return res.render("404", { pageTitle: "Video not found" });
   }
   if (String(video.owner) !== String(req.session.user._id)) {
@@ -156,9 +154,12 @@ export const createComment = async(req, res) => {
     body: { text },
     params: {id},
   } = req
-
-  const video = await Video.findById(id).populate("comments");
-
+  if (user == undefined) {
+    req.flash("error", "You must login for write comment");
+    return res.sendStatus(403)
+  } else {
+    const video = await Video.findById(id).populate("comments");
+  
   if (!video) {
     return res.sendStatus(404);
   }
@@ -169,8 +170,21 @@ export const createComment = async(req, res) => {
   })
   video.comments.push(comment._id);
   video.save();
-  console.log(video.comments[0]._id)
   return res.status(201).json({newCommentId: comment._id});
+  }
+  // const video = await Video.findById(id).populate("comments");
+  
+  // if (!video) {
+  //   return res.sendStatus(404);
+  // }
+  // const comment = await Comment.create({
+  //   text,
+  //   owner: user._id,
+  //   video: id,
+  // })
+  // video.comments.push(comment._id);
+  // video.save();
+  // return res.status(201).json({newCommentId: comment._id});
 }
 
 export const deleteComment = async (req, res) => {

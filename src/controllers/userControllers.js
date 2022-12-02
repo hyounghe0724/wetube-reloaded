@@ -91,7 +91,6 @@ export const finishKakaoLogin = async (req, res) => {
       body: `grant_type=authorization_code&client_id=${REST_API_KEY}&code=${AUTHORIZE_CODE}`,
     })
   ).json();
-  console.log(tokenRequest);
   const ACCESS_TOKEN = tokenRequest.access_token;
   if ("access_token" in tokenRequest) {
     const kakaoUserInfo = await (
@@ -175,7 +174,6 @@ export const finishGithubLogin = async (req, res) => {
         },
       })
     ).json();
-    console.log("userData:", userData);
     const emailData = await (
       await fetch(`${apiUrl}/user/emails`, {
         headers: {
@@ -218,20 +216,13 @@ export const expireFnc = async (req, res) => {
   const response = await axios.get(
     `https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
   );
-  console.log(response);
   return res.redirect("/users/logout");
 };
 export const logout = async (req, res) => {
-  //   const REST_API_KEY = process.env.KA_REST_KEY;
-  //   const LOGOUT_REDIRECT_URI = "http://localhost:57621/users/expire"
-  //   const AUTHORIZE_CODE = req.query.code;
-  //   const OUT_KEY = process.env.KA_SECRET;
-  //   let USER_REFRESH_TOKEN;
-  req.session.destroy();
+ 
   req.flash("info", "Bye Bye");
-  //   const response = await axios.get(`https://kauth.kakao.com/oauth/logout?client_id=${REST_API_KEY}&logout_redirect_uri=${LOGOUT_REDIRECT_URI}`
-  //);
-  return res.redirect("/");
+  req.session.destroy();
+  res.redirect("/");
 };
 export const getEdit = (req, res) => {
   return res.render("edit-profile", { pageTitle: "Edit Profile" });
