@@ -69,7 +69,7 @@ export const postLogin = async (req, res) => {
 export const startKakaoLogin = (req, res) => {
   const baseUrl = `https://kauth.kakao.com/oauth/authorize?response_type=code&`;
   const REST_API_KEY = process.env.KA_REST_KEY; // .env
-  const REDIRECT_URL = "http://localhost:57621/users/kakao/finish";
+  const REDIRECT_URL = "https://jjobtube.herokuapp.com//users/kakao/finish";
   const finalUrl = `${baseUrl}client_id=${REST_API_KEY}&redirect_uri=${REDIRECT_URL}`;
   return res.redirect(finalUrl);
 };
@@ -78,7 +78,7 @@ export const finishKakaoLogin = async (req, res) => {
   const AUTHORIZE_CODE = req.query.code;
   const REST_API_KEY = process.env.KA_REST_KEY;
   const grant_type = "authorization_code";
-  const redirect_uri = "http://localhost:57621/users/kakao/finish";
+  const redirect_uri = "https://jjobtube.herokuapp.com/users/kakao/finish";
   const scope = "nickname picture email";
   const finalUrl = `${baseUrl}`;
   const tokenRequest = await (
