@@ -1,9 +1,11 @@
 import multer from "multer"
-import multerS3 from "multer-s3"
-import AWS from "aws-sdk"
+import multerS3 from "multer-s3"; // ^3.0.1"
+import { S3Client } from "@aws-sdk/client-s3"; //
 
-const s3 = new AWS.S3({
+const s3 = new S3Client({
+  region: "ap-northeast-2",
   credentials: {
+    apiVersion: "2022-12-04",
     accessKeyId: process.env.AWS_ID,
     secretAccessKey: process.env.AWS_SECRET,
   }
