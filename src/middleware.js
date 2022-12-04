@@ -3,12 +3,12 @@ import multerS3 from "multer-s3"; // ^3.0.1"
 import { S3Client } from "@aws-sdk/client-s3"; //
 
 const s3 = new S3Client({
-  region: "ap-northeast-2",
   credentials: {
     apiVersion: "2022-12-04",
     accessKeyId: process.env.AWS_ID,
     secretAccessKey: process.env.AWS_SECRET,
-  }
+  },
+  region: "ap-northeast-2",
 })
 
 const multerUploader = multerS3({
