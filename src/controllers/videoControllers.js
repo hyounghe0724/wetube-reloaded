@@ -85,8 +85,8 @@ export const postUpload = async (req, res) => {
   } = req.session;
   let { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
-  video[0].path = video[0].path.replace(/\\/g, "/")
-  thumb[0].path = thumb[0].path.replace(/\\/g, "/")
+  video[0].location = video[0].location.replace(/\\/g, "/")
+  thumb[0].location = thumb[0].location.replace(/\\/g, "/")
   try {
     const newVideo = await Video.create({
       title,
