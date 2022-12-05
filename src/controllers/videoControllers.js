@@ -87,14 +87,19 @@ export const postUpload = async (req, res) => {
   } = req.session;
   let { video, thumb } = req.files;
   const { title, description, hashtags } = req.body;
-  video[0].location = video[0].location.replace(/\\/g, "/")
-  thumb[0].location = thumb[0].location.replace(/\\/g, "/")
+  if (res.locals.isHeroku) {
+    video[0].location = video[0].location.replace(/\\/g, "/")
+    thumb[0].location = thumb[0].location.replace(/\\/g, "/")
+  } else {
+    video[0].path = video[0].path.replace(/\\/g, "/")
+    thumb[0].path = thumb[0].path.replace(/\\/g, "/")
+  }
   try {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: isHeroku ? video[0].location : video[0].path,
-      thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
+      fileUrl: isHeroku ? video[0].location : "/" + video[0].path,
+      thumbUrl: isHeroku ? thumb[0].location : "/" + thumb[0].path,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
