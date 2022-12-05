@@ -15,6 +15,7 @@ console.log("start")
  });
  console.log("finish")
 */
+
 export const home = async (req, res) => {
   try {
     //someting trying but find error then catch the error
@@ -52,6 +53,7 @@ export const getEdit = async (req, res) => {
     video,
   });
 };
+const isHeroku = process.env.NODE_ENV == "production"
 export const postEdit = async (req, res) => {
   const { id } = req.params; //const id = req.params.id
   const { title, description, hashtags } = req.body;
@@ -91,8 +93,8 @@ export const postUpload = async (req, res) => {
     const newVideo = await Video.create({
       title,
       description,
-      fileUrl: video[0].location,
-      thumbUrl: thumb[0].location,
+      fileUrl: isHeroku ? video[0].location : video[0].path,
+      thumbUrl: isHeroku ? thumb[0].location : thumb[0].path,
       owner: _id,
       hashtags: Video.formatHashtags(hashtags),
     });
