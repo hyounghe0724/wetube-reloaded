@@ -2,24 +2,41 @@
   "name": "wetube",
   "version": "1.0.0",
   "description": "The best way to watch video",
+
+  /* Heroku가 LTS 이미지를 사용하도록 Node 버전 고정 */
+  "engines": {
+    "node": "20.x"
+  },
+
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hyounghe0724/wetube-reloaded.git"
   },
+
   "scripts": {
+    /* 프로덕션 실행: 빌드 결과물을 사용 */
     "start": "node build/init.js",
+
+    /* 로컬·Heroku 공통 빌드 파이프라인 */
     "build": "npm run build:server && npm run build:assets",
     "build:server": "babel src -d build",
     "build:assets": "webpack --mode=production",
+
+    /* 개발용 편의 스크립트 */
     "dev:server": "nodemon",
-    "dev:assets": "webpack --mode=development -w"
+    "dev:assets": "webpack --mode=development -w",
+
+    /* Heroku slug 빌드 완료 후 자동 실행 → devDependencies 포함 설치 + 빌드 */
+    "heroku-postbuild": "npm run build"
   },
+
   "author": "",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/hyounghe0724/wetube-reloaded/issues"
   },
   "homepage": "https://github.com/hyounghe0724/wetube-reloaded#readme",
+
   "dependencies": {
     "@ffmpeg/core": "^0.11.0",
     "@ffmpeg/ffmpeg": "^0.11.6",
@@ -40,6 +57,7 @@
     "pug": "^3.0.2",
     "regenerator-runtime": "^0.13.10"
   },
+
   "devDependencies": {
     "@babel/cli": "^7.19.3",
     "@babel/core": "^7.20.5",
